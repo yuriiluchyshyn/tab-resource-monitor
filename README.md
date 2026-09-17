@@ -28,8 +28,7 @@ is pinned in the extension's manifest.
   irm https://raw.githubusercontent.com/yuriiluchyshyn/tab-resource-monitor/main/bootstrap.ps1 | iex
   ```
 
-Then reload the extension at `chrome://extensions`. Its popup status line should
-read `native: on`.
+Then open the monitor (or press **Re-check** on the extension's setup page) — its status line should read `native: on`.
 
 ## See tabs from all windows & profiles (optional)
 

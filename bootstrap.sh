@@ -415,5 +415,5 @@ if [ "$COUNT" -eq 0 ]; then
 fi
 
 echo
-echo "Done. Reload Tab Resource Monitor at chrome://extensions, then open it —"
-echo "the status line should read 'native: on'."
+echo "Done. Open Tab Resource Monitor — the status line should read 'native: on'."
+echo "(In the setup page, just press Re-check.)"

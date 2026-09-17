@@ -374,5 +374,5 @@ foreach ($r in $roots) {
 }
 
 Write-Host ''
-Write-Host "Done. Reload Tab Resource Monitor at chrome://extensions, then open it -"
-Write-Host "the status line should read 'native: on'."
+Write-Host "Done. Open Tab Resource Monitor - the status line should read 'native: on'."
+Write-Host "(In the setup page, just press Re-check.)"
