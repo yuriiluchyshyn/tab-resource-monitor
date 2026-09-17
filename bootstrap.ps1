@@ -100,7 +100,7 @@ async function handleMessage(msg) {
   try {
     switch (msg.cmd) {
       case 'ping':
-        send({ id, ok: true, pong: true, version: '1.0.0', platform: process.platform });
+        send({ id, ok: true, pong: true, version: '1.0.1', platform: process.platform });
         return;
       case 'sample': {
         const data = await sample(msg.debugPort);
