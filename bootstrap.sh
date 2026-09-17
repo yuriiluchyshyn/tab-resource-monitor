@@ -116,7 +116,7 @@ async function handleMessage(msg) {
   try {
     switch (msg.cmd) {
       case 'ping':
-        send({ id, ok: true, pong: true, version: '1.0.1', platform: process.platform });
+        send({ id, ok: true, pong: true, version: '1.0.2', platform: process.platform });
         return;
       case 'sample': {
         const data = await sample(msg.debugPort);
@@ -126,6 +126,12 @@ async function handleMessage(msg) {
       case 'closeTarget': {
         const ok = await cdpCloseTarget(msg.debugPort, msg.targetId);
         send({ id, ok });
+        return;
+      }
+      case 'killPid': {
+        // End any OS process by pid (used to kill Chrome helper processes the
+        // chrome.* APIs can't touch). SIGTERM by default; SIGKILL if forced.
+        send({ id, ok: killPid(msg.pid, msg.force ? 'SIGKILL' : 'SIGTERM') });
         return;
       }
       default:
@@ -296,6 +302,17 @@ async function cdpCloseTarget(port, targetId) {
   if (!port || !targetId) return false;
   const raw = await cdpGet(port, '/json/close/' + encodeURIComponent(targetId));
   return raw != null; // endpoint returns "Target is closing" on success
+}
+
+function killPid(pid, signal) {
+  const n = Number(pid);
+  if (!Number.isInteger(n) || n <= 1) return false; // never target pid 0/1
+  try {
+    process.kill(n, signal || 'SIGTERM');
+    return true;
+  } catch (_) {
+    return false;
+  }
 }
 
 // ---- Assemble a sample ------------------------------------------------------
